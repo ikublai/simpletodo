@@ -19,11 +19,12 @@ public class EditItemActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         String textToEdit = intent.getStringExtra("edittext");
+        String dueDate = intent.getStringExtra("duedate");
         final int position = intent.getIntExtra("index", 0);
         int id = intent.getIntExtra("id", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
-        this.setEditText(textToEdit);
+        this.setEditText(textToEdit, dueDate);
 
         // set the submit click handler
         Button btnSave = (Button) findViewById(R.id.btnSave);
@@ -31,9 +32,11 @@ public class EditItemActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 EditText etTodoEdit = (EditText) findViewById(R.id.etEditTodoText);
+                EditText etDueDate = (EditText) findViewById(R.id.etDueDate);
                 Intent data = new Intent();
                 data.putExtra("newtext", etTodoEdit.getText().toString());
                 data.putExtra("position", position);
+                data.putExtra("duedate", etDueDate.getText().toString());
                 setResult(RESULT_CODE, data);
                 finish();
             }
@@ -71,8 +74,10 @@ public class EditItemActivity extends ActionBarActivity {
     }
 
     // set edit text
-    private void setEditText(String textToEdit) {
+    private void setEditText(String textToEdit, String dueDate) {
         TextView edTodo = (TextView) findViewById(R.id.etEditTodoText);
+        TextView edDueDate = (TextView) findViewById(R.id.etDueDate);
         edTodo.setText(textToEdit);
+        edDueDate.setText(dueDate);
     }
 }
